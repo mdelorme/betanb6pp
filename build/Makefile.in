@@ -29,7 +29,7 @@ INTEL_FLAGS= -D __USE_INTEL
 
 FFLAGS = @FCFLAGS@
 CXXFLAGS = @CXXFLAGS@
-CUFLAGS = @CUFLAGS@
+CUFLAGS = @CUFLAGS@ --compiler-bindir @CXX@ -D_FORCE_INLINES
 LDFLAGS = -o $(RESULT)
 
 MPI_FSOURCES= energy_mpi.f fpoly1_mpi.f fpoly2_mpi.f
