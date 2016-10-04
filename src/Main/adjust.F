@@ -434,11 +434,11 @@ C     New (Aug. 1998): P.Kroupa
 #ifdef PARALLEL
          END IF
          call cputim(tt998)
-         CALL MPI_BARRIER(MPI_COMM_WORLD,ierr)
+         CALL MPI_BARRIER(MPI_COMM_NB6,ierr)
          call cputim(tt999)
          ibarcount=ibarcount+1
          ttbar = ttbar + (tt999-tt998)*60
-*         CALL MPI_ABORT(MPI_COMM_WORLD,ierr)
+*         CALL MPI_ABORT(MPI_COMM_NB6,ierr)
          CALL MPI_FINALIZE
 #endif
          STOP

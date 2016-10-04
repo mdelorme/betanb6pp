@@ -55,7 +55,7 @@ c$$$     &        ,'step',step(i1),'t0',t0(i1),'tblock',tblock
 c$$$         print*,rank,'ksint I1',i1,'X',x(1,i1),'xdot',xdot(1,i1),
 c$$$     &        'UDOT',udot(1,ipair),'tblock',tblock
 c$$$         call flush(120+rank)
-c$$$         call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$         call mpi_barrier(MPI_COMM_NB6,ierr)
 c$$$      end if
 *     --09/25/13 14:23-lwang-end----------------------------------------*
 *
@@ -167,7 +167,7 @@ c$$$     &        'UI',UI(1),'UIDOT',uidot(1),'fp',fp(1),
 c$$$     &        'fd',fd(1),'tblock',tblock
 c$$$         call flush(125+rank)
 c$$$         call flush(6)
-c$$$         call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$         call mpi_barrier(MPI_COMM_NB6,ierr)
 c$$$      end if
 *     --09/25/13 14:23-lwang-end----------------------------------------*
 *       Save old radial velocity & relative perturbation and set new GAMMA.
@@ -198,7 +198,7 @@ c$$$         print*,rank,'ksint I1',i1,'ipair',ipair,
 c$$$     &        'H0',H0(ipair),'UDOT',udot(1,ipair),
 c$$$     &        't',time,'t0',t0(i1)
 c$$$         call flush(125+rank)
-c$$$         call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$         call mpi_barrier(MPI_COMM_NB6,ierr)
 c$$$      end if
 *       Apply the Hermite corrector.
       CALL KSCORR(IPAIR,UI,UIDOT,FP,FD,TD2,TDOT4,TDOT5,TDOT6)
@@ -226,7 +226,7 @@ c$$$         print*,rank,'kscorr I1',i1,'ipair',ipair,
 c$$$     &        'U',u(1,ipair),'UDOT',udot(1,ipair),
 c$$$     &        't',time,'t0',t0(i1)
 c$$$         call flush(125+rank)
-c$$$         call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$         call mpi_barrier(MPI_COMM_NB6,ierr)
 c$$$         if(time.ge.29.047067570490370) stop
 c$$$      end if
 *     --09/25/13 14:23-lwang-end----------------------------------------*

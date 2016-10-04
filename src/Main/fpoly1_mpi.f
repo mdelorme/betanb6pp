@@ -16,7 +16,7 @@
 *
 *       Loop over all bodies, pair #ICOMP & JCOMP or one single body.
       call cputim(tt998)
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ttbar = ttbar + (tt999-tt998)*60
       ibarcount=ibarcount+1
@@ -142,25 +142,25 @@
 *     print*,' FPOLY1: rank=',rank,' recving ',icnt2,
 *    *  ' items from ',irecv
 *
-*      call mpi_barrier(MPI_COMM_WORLD,ierr)
+*      call mpi_barrier(MPI_COMM_NB6,ierr)
       CALL MPI_SENDRECV(FI(1,istart),3*icnt,MPI_REAL8,isend,rank,
      *                  FI(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
-*      call mpi_barrier(MPI_COMM_WORLD,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
+*      call mpi_barrier(MPI_COMM_NB6,ierr)
       CALL MPI_SENDRECV(FR(1,istart),3*icnt,MPI_REAL8,isend,rank,
      *                  FR(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
-*      call mpi_barrier(MPI_COMM_WORLD,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
+*      call mpi_barrier(MPI_COMM_NB6,ierr)
       CALL MPI_SENDRECV(D1(1,istart),3*icnt,MPI_REAL8,isend,rank,
      *                  D1(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
-*      call mpi_barrier(MPI_COMM_WORLD,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
+*      call mpi_barrier(MPI_COMM_NB6,ierr)
       CALL MPI_SENDRECV(D1R(1,istart),3*icnt,MPI_REAL8,isend,rank,
      *                  D1R(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
 *
       call cputim(tt998)
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ibarcount=ibarcount+1
       ttbar = ttbar + (tt999-tt998)*60

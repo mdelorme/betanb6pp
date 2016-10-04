@@ -40,11 +40,30 @@
 #endif
 
 #if MPIINIT
-*       Initialize MPI
+      character (len=128) env_var
+      integer nb6_procs
+      
+*     Initialize MPI
       CALL MPI_INIT(ierr)
       CALL MPI_COMM_GROUP(MPI_COMM_WORLD,group,ierr)
       CALL MPI_GROUP_SIZE(group,isize,ierr)
       CALL MPI_GROUP_RANK(group,rank,ierr)
+
+
+*     We check if we are in MIMD mode. If so, we must define a
+*     environment variable called NB6_PROCS
+      CALL getenv('NB6_PROCS', env_var)
+      if (env_var .ne. "") then
+*     We switch to MIMD mode (TODO)
+         
+
+      else
+*     If we are not in MIMD mode, we just copy the MPI_COMM_NB6 communicator
+*     so that it matches MPI_COMM_WORLD
+         MPI_COMM_NB6 = MPI_COMM_WORLD
+      endif
+
+      
       ibarcount=0
       write(6,11) rank,isize,group
  11   format('MPI-initial: This is rank=',I6,' size=',I6,' group=',I11)
@@ -64,7 +83,7 @@
 #endif
 
 #ifdef PARALLEL
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
 #endif      
       call flush(6)
 *
@@ -76,22 +95,22 @@
 ***** Note:------------------------------------------------------------**
       if(rank.eq.0) read(5,*) adtime,dumptime,dprintt,dtprint,namep
 #if MPIINIT
-      CALL MPI_BCAST(adtime,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(dumptime,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(dprintt,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(dtprint,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(namep,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      CALL MPI_BCAST(adtime,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(dumptime,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(dprintt,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(dtprint,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(namep,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
 #endif      
 *     --10/03/14 19:41-lwang-end----------------------------------------*
 #endif
 *
 #if MPIINIT
-      CALL MPI_BCAST(isernb,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(iserreg,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(iserks,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(KSTART,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(TCOMP,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-      CALL MPI_BCAST(TCRITP,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+      CALL MPI_BCAST(isernb,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(iserreg,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(iserks,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(KSTART,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(TCOMP,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+      CALL MPI_BCAST(TCRITP,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
 *
       isernb = max(isize,isernb*icore)
       iserreg = max(isize,iserreg*icore)

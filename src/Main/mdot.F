@@ -1311,7 +1311,7 @@ c$$$      if(time.ge.3.5373535156250000) then
 c$$$      il=3173
 c$$$      print*,rank,'m4',il,name(il),d3(1,il),d2r(1,il),d3r(1,il),time
 c$$$      call flush(6)
-c$$$      call mpi_barrier(MPI_COMM_WORLD,ierr)      
+c$$$      call mpi_barrier(MPI_COMM_NB6,ierr)      
 c$$$      stop
 c$$$      end if
 *     --09/27/13 10:39-lwang-end----------------------------------------*

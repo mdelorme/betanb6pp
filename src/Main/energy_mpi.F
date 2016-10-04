@@ -49,7 +49,7 @@ c$$$      end if
       VIR = 0.0
 *
       call cputim(tt998)
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ttbar = ttbar + (tt999-tt998)*60
       ibarcount=ibarcount+1
@@ -173,21 +173,21 @@ C
 *      print*,' ENERGY: bef rank ',rank,' shpot(',istrec,')=',
 *     *          shpot(istrec)
 *
-*     call mpi_barrier(MPI_COMM_WORLD,ierr)
+*     call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(ttae)
       CALL MPI_SENDRECV(PHIDBL(istart),icnt,MPI_REAL8,isend,rank,
      *                  PHIDBL(istrec),icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
 #ifndef GPU
       CALL MPI_SENDRECV(SHPOT(istart),icnt,MPI_REAL8,isend,rank,
      *                  SHPOT(istrec),icnt2,MPI_REAL8,irecv,irecv,
-     *                  MPI_COMM_WORLD,status,ierr)
+     *                  MPI_COMM_NB6,status,ierr)
 #endif      
       call cputim(ttab)
       ttsube = ttsube + (ttab-ttae)*60
 *
       call cputim(tt998)
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ttbar = ttbar + (tt999-tt998)*60
       ibarcount=ibarcount+1

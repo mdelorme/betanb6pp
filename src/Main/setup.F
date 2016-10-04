@@ -112,10 +112,10 @@
       IF (KZ(5).EQ.2) THEN
           READ (5,*)  APO, ECC, N2, SCALE
 #if MPIINIT
-          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(N2,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(SCALE,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(N2,1,MPI_INTEGER,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(SCALE,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
 #endif
           N2 = MIN(N,N2)
           SEMI = APO/(1.0 + ECC)
@@ -156,9 +156,9 @@
 *       Prepare case of accretion disk with massive perturber.
           READ (5,*)  APO, ECC, SCALE
 #if MPIINIT
-          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(SCALE,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(SCALE,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
 #endif
           RIN = 0.5
           ROUT = 1.0
@@ -228,10 +228,10 @@
           N2 = 0
           READ (5,*)  SEMI, ECC, ZM1, ZM2
 #if MPIINIT
-          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(ZM1,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-          CALL MPI_BCAST(ZM2,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+          CALL MPI_BCAST(APO,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(ECC,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(ZM1,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+          CALL MPI_BCAST(ZM2,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
 #endif
           if(rank.eq.0) WRITE (6,72)  SEMI, ECC, ZM1, ZM2
    72     FORMAT (/,12X,'MASSIVE BODIES    A =',1P,E9.1,
@@ -296,8 +296,8 @@
           IF (KZ(24).LT.0) THEN
               READ (5,*) ZMH, RCUT
 #if MPIINIT
-              CALL MPI_BCAST(ZMH,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
-              CALL MPI_BCAST(RCUT,1,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+              CALL MPI_BCAST(ZMH,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
+              CALL MPI_BCAST(RCUT,1,MPI_REAL8,0,MPI_COMM_NB6,ierr)
 #endif
               IF (ZMH.GT.0.0) THEN
                   Y0 = 1.25/TWOPI*(ZMH/FLOAT(N))

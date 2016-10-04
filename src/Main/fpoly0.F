@@ -315,24 +315,24 @@ c$$$     &     ' size',icnt,' isend',isend,' irecv',irecv
       call cputim(tta)
       CALL MPI_SENDRECV(FI(1,istsen),3*icnt,MPI_REAL8,isend,
      *         rank,FI(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       CALL MPI_SENDRECV(FR(1,istsen),3*icnt,MPI_REAL8,isend,
      *         rank,FR(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       CALL MPI_SENDRECV(D1(1,istsen),3*icnt,MPI_REAL8,isend,
      *         rank,D1(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       CALL MPI_SENDRECV(D1R(1,istsen),3*icnt,MPI_REAL8,isend,
      *         rank,D1R(1,istrec),3*icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       CALL MPI_SENDRECV(RS(istsen),icnt,MPI_REAL8,isend,
      *         rank,RS(istrec),icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       CALL MPI_SENDRECV(LIST(1,istsen),LMAX*icnt,MPI_INTEGER,isend,
      *         rank,LIST(1,istrec),LMAX*icnt2,MPI_REAL8,irecv,irecv,
-     *         MPI_COMM_WORLD,status,ierr)
+     *         MPI_COMM_NB6,status,ierr)
       call cputim(ttb)
-      call mpi_barrier(MPI_COMM_WORLD,ierr)
+      call mpi_barrier(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ibarcount=ibarcount+1
       ttbar = ttbar + (tt999-ttb)*60

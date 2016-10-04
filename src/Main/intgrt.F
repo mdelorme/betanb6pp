@@ -299,7 +299,7 @@ C         IF(J.EQ.9951) print*,'L',L,'J',J,'T',TIME
       if(time.ge.dumptime) then
          if(rank.eq.0) call mydump(1,1)
 #ifdef PARALLEL
-         call mpi_barrier(MPI_COMM_WORLD,ierr)
+         call mpi_barrier(MPI_COMM_NB6,ierr)
 #endif
          stop
       end if
@@ -307,7 +307,7 @@ C         IF(J.EQ.9951) print*,'L',L,'J',J,'T',TIME
          call adjust
          call flush(6)
 #ifdef PARALLEL
-         call mpi_barrier(MPI_COMM_WORLD,ierr)
+         call mpi_barrier(MPI_COMM_NB6,ierr)
 #endif
          stop
       end if
@@ -495,7 +495,7 @@ C            write(100+rank,*)'LIST',LIST(1:LIST(1,J)+1,J)
 #ifdef PARALLEL
 C        print*,'rank',rank,'bar count:',ibarcount,'nstepi',nstepi
         call flush(6)
-C        call mpi_barrier(MPI_COMM_WORLD,ierr)
+C        call mpi_barrier(MPI_COMM_NB6,ierr)
 #endif
 C        if (TCCT.gt.2.0) stop
         dprintt = TIME + dtprint
@@ -585,7 +585,7 @@ c$$$            XDOT(1:3,I) = XNDOT(1:3,I)
         ELSE
 *
            call cputim(tt998)
-           call mpi_barrier(MPI_COMM_WORLD,ierr)
+           call mpi_barrier(MPI_COMM_NB6,ierr)
            call cputim(tt999)
            ttbar = ttbar + (tt999-tt998)*60
            ibarcount=ibarcount+1
@@ -627,7 +627,7 @@ c$$$            XDOT(1:3,I) = XNDOT(1:3,I)
 *     end if
 *
 c$$$      call cputim(tt998)
-c$$$      call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$      call mpi_barrier(MPI_COMM_NB6,ierr)
 c$$$      call cputim(tt999)
 c$$$      tttdet=(tt999-tt998)*60
 c$$$      ttbar = ttbar + (tt999-tt998)*60
@@ -726,9 +726,9 @@ c$$$      ttbarnb = ttbarnb + (tt999-tt998)*60
               call cputim(tta)
               CALL MPI_SENDRECV(XMPI(1,istsen),20*icnt,MPI_REAL8,isend,
      *             rank,XMPI(1,istrec),20*icnt2,MPI_REAL8,irecv,irecv,
-     *             MPI_COMM_WORLD,status,ierr)
+     *             MPI_COMM_NB6,status,ierr)
               call cputim(ttb)
-              call mpi_barrier(MPI_COMM_WORLD,ierr)
+              call mpi_barrier(MPI_COMM_NB6,ierr)
               call cputim(tt999)
               ttbar = ttbar + (tt999-ttb)*60
               ttbarnb = ttbarnb + (tt999-ttb)*60
@@ -748,7 +748,7 @@ c$$$      ttbarnb = ttbarnb + (tt999-tt998)*60
 *
            end do
 *
-*          call mpi_barrier(MPI_COMM_WORLD,ierr)
+*          call mpi_barrier(MPI_COMM_NB6,ierr)
 *
            call cputim(ttmov3)
            Loffset = 0
@@ -950,7 +950,7 @@ c$$$               XDOT(1:3,I) = XNDOT(1:3,I)
          ELSE
 *
             call cputim(tt998)
-            call mpi_barrier(MPI_COMM_WORLD,ierr)
+            call mpi_barrier(MPI_COMM_NB6,ierr)
             call cputim(tt999)
             ibarcount=ibarcount+1
             ttbar = ttbar + (tt999-tt998)*60
@@ -1075,14 +1075,14 @@ c$$$      end if
                call cputim(tta)
                CALL MPI_SENDRECV(YMPI(1,istsen),41*icnt,MPI_REAL8,isend,
      *              rank,YMPI(1,istrec),41*icnt2,MPI_REAL8,irecv,irecv,
-     *              MPI_COMM_WORLD,status,ierr)
+     *              MPI_COMM_NB6,status,ierr)
 *     
-c$$$  call mpi_barrier(MPI_COMM_WORLD,ierr)
+c$$$  call mpi_barrier(MPI_COMM_NB6,ierr)
                CALL MPI_SENDRECV(IMPI(1,istsen),lmax*icnt,MPI_INTEGER,
      *              isend,rank,IMPI(1,istrec),lmax*icnt2,MPI_INTEGER,
-     *              irecv,irecv,MPI_COMM_WORLD,status,ierr)
+     *              irecv,irecv,MPI_COMM_NB6,status,ierr)
                call cputim(ttb)
-               call mpi_barrier(MPI_COMM_WORLD,ierr)
+               call mpi_barrier(MPI_COMM_NB6,ierr)
                call cputim(tt999)
                ibarcount=ibarcount+1
                ttbar = ttbar + (tt999-ttb)*60
@@ -1103,10 +1103,10 @@ c$$$  call mpi_barrier(MPI_COMM_WORLD,ierr)
             END DO
 *
             CALL MPI_ALLGATHER(JMPI(1),11,MPI_INTEGER,
-     *           JMPILOCAL(1,1),11,MPI_INTEGER,MPI_COMM_WORLD,ierr)
+     *           JMPILOCAL(1,1),11,MPI_INTEGER,MPI_COMM_NB6,ierr)
 *     
             call cputim(tt998)
-            call mpi_barrier(MPI_COMM_WORLD,ierr)
+            call mpi_barrier(MPI_COMM_NB6,ierr)
             call cputim(tt999)
             ibarcount=ibarcount+1
             ttbar = ttbar + (tt999-tt998)*60
@@ -1186,7 +1186,7 @@ c$$$  call mpi_barrier(MPI_COMM_WORLD,ierr)
             call cputim(tt3)
             ttmov = ttmov + (tt3-tt999)*60.
 *
-*      call mpi_barrier(MPI_COMM_WORLD,ierr)
+*      call mpi_barrier(MPI_COMM_NB6,ierr)
 *      call cputim(tt999)
 *      ibarcount=ibarcount+1
 *      ttbar = ttbar + (tt999-tt3)*60
@@ -1460,11 +1460,11 @@ C      END IF
 #endif
 #ifdef PARALLEL
       call cputim(tt998)
-      CALL MPI_BARRIER(MPI_COMM_WORLD,ierr)
+      CALL MPI_BARRIER(MPI_COMM_NB6,ierr)
       call cputim(tt999)
       ibarcount=ibarcount+1
       ttbar = ttbar + (tt999-tt998)*60
-      CALL MPI_ABORT(MPI_COMM_WORLD,ierr)
+      CALL MPI_ABORT(MPI_COMM_NB6,ierr)
 #endif
       STOP
 *
