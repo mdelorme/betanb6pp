@@ -53,8 +53,9 @@
 *     We check if we are in MIMD mode. If so, we must define a
 *     environment variable called NB6_PROCS
       CALL getenv('NB6_PROCS', env_var)
-      if (env_var .ne. "") then
+      if (env_var .ne. '') then
 *     We switch to MIMD mode (TODO)
+         READ (env_var, '(I6)') nb6_procs
          
 
       else
@@ -62,6 +63,20 @@
 *     so that it matches MPI_COMM_WORLD
          MPI_COMM_NB6 = MPI_COMM_WORLD
       endif
+
+
+*     STDOUT/STDERR redirection
+      call getenv('NB6_STDOUT', env_var)
+      if (env_var .ne. '') then
+         open(unit=6, file=env_var, access='append', action='write',
+     &        form='formatted')
+      end if
+
+      call getenv('NB6_STDERR', env_var)
+      if (env_var .ne. '') then
+         open(unit=7, file=env_var, access='append', action='write',
+     &        form='formatted')
+      end if
 
       
       ibarcount=0
