@@ -7,7 +7,7 @@ To install Nbody6++, please use:
 make
 make install
 
-The configure has several optional features, please use
+The configure has several optional features, please use:
 ./configure --help
 to check these features.
 
